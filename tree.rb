@@ -67,18 +67,26 @@ class Tree
 		nil
 	end
 
-	def dfs_rec(value)
-		# Search using depth first search
-		# Return node that contains inputted value
-		# Don't use a stack, use recursion
+	def dfs_rec(value, node = @root)
+		return if @root.nil?
+		puts "Node found: #{node.value} #{node}" if node.value == value
+		dfs_rec(value, node.left) unless node.left.nil?
+		dfs_rec(value, node.right) unless node.right.nil?
 	end
 end
 
-array = [7,2,1,9,7,20,3,40,5]
+# array = [7,2,1,9,7,20,3,40,5]
+array = Array.new(10) { rand(30) }
+p array
 my_tree = Tree.new(array)
 my_tree.build_tree
-p my_tree
-puts my_tree.breadth_first_search(20)
-puts my_tree.breadth_first_search(19)
-puts my_tree.depth_first_search(10)
-puts my_tree.depth_first_search(7)
+
+puts my_tree.breadth_first_search(array[5])
+puts my_tree.breadth_first_search(31)
+
+puts my_tree.depth_first_search(array[3])
+puts my_tree.depth_first_search(33)
+
+my_tree.dfs_rec(array[4])
+my_tree.dfs_rec(350)
+
